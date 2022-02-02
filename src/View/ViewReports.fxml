@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ViewReportsController">
+   <children>
+      <TableView fx:id="ApptmtsView" layoutX="51.0" layoutY="90.0" prefHeight="200.0" prefWidth="890.0">
+        <columns>
+          <TableColumn fx:id="IDCol" prefWidth="41.5" text="ID" />
+          <TableColumn fx:id="TitleCol" prefWidth="70.17446899414062" text="Title" />
+            <TableColumn fx:id="DescriptionCol" prefWidth="95.82553100585938" text="Description" />
+            <TableColumn fx:id="LocationCol" prefWidth="88.81172180175781" text="Location" />
+            <TableColumn fx:id="ContactCol" prefWidth="81.93084716796875" text="Contact" />
+            <TableColumn fx:id="TypeCol" prefWidth="115.0" text="Type" />
+            <TableColumn fx:id="StartCol" prefWidth="142.0" text="Start (Local)" />
+            <TableColumn fx:id="EndCol" prefWidth="145.0" text="End (Local)" />
+            <TableColumn fx:id="CustIDCol" prefWidth="55.5" text="Cust ID" />
+            <TableColumn fx:id="UserIDCol" prefWidth="51.32818603515625" text="User ID" />
+        </columns>
+      </TableView>
+      <Button fx:id="BackBtn" layoutX="57.0" layoutY="376.0" mnemonicParsing="false" onAction="#OnActionBack" prefHeight="26.0" prefWidth="150.0" text="Back" />
+      <ComboBox fx:id="contactCombo" layoutX="186.0" layoutY="36.0" onAction="#OnActionUpdateCombo" prefWidth="150.0" />
+      <ComboBox fx:id="MonthCombo" layoutX="586.0" layoutY="325.0" prefWidth="150.0" />
+      <Button fx:id="GenerateBtn" layoutX="777.0" layoutY="376.0" mnemonicParsing="false" onAction="#OnActionGenerate" prefHeight="26.0" prefWidth="150.0" text="Generate Report" />
+      <Label layoutX="50.0" layoutY="40.0" prefHeight="17.0" prefWidth="100.0" text="Filter By Contact" />
+      <ComboBox fx:id="TypeCombo" layoutX="586.0" layoutY="375.0" prefWidth="150.0" />
+      <Label layoutX="472.0" layoutY="329.0" prefHeight="17.0" prefWidth="59.0" text="Month" />
+      <Label layoutX="477.0" layoutY="379.0" prefHeight="17.0" prefWidth="59.0" text="Type" />
+      <Button fx:id="UserLogButton" layoutX="785.0" layoutY="27.0" mnemonicParsing="false" onAction="#OnActionUserLog" prefHeight="26.0" prefWidth="150.0" text="User Log Report" />
+   </children>
+</AnchorPane>
