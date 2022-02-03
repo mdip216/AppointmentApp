@@ -184,6 +184,7 @@ public class LoginController implements Initializable {
 
         LocationLbl.setText(ZoneId.systemDefault().toString());
 
+
         ResourceBundle bundle = ResourceBundle.getBundle("Controller/language", Locale.getDefault());
         if(Locale.getDefault().getLanguage().equals("fr")){
            CancelBtn.setText(bundle.getString("Cancel"));

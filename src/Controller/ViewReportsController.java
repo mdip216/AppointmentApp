@@ -212,15 +212,14 @@ public class ViewReportsController implements Initializable {
     /**
      *  sets the contact combo box
      *  lambda used to set the contact combo box, i used this because it was less lines of code than
-     *      *  a for loop and easier to read
+     *  a for loop and easier to read
      */
 
     public void setContactCombo(){
         ObservableList<String> contacts = FXCollections.observableArrayList();
 
         //lambda
-        AppointmentDB.getIdsForComboBox("contacts").stream()
-                .forEach(i->contacts.add(AppointmentDB.contactIdToContact(i)));
+        AppointmentDB.getIdsForComboBox("contacts").stream().forEach(i->contacts.add(AppointmentDB.contactIdToContact(i)));
 
 
         contactCombo.setItems(contacts);
@@ -232,7 +231,6 @@ public class ViewReportsController implements Initializable {
      *  sets the month combo box
      *
      */
-
     public void setMonthCombo(){
 
         ObservableList<String> obsMonths = FXCollections.observableArrayList();

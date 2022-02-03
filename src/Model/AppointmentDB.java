@@ -176,14 +176,28 @@ public class AppointmentDB {
     /**method for checking EST business hours*/
     public static boolean estCheck(ZonedDateTime start, ZonedDateTime end, LocalDate date) {
         // Business hours are in EST
+
         ZoneId zoneId = ZoneId.of("America/New_York");
+        LocalTime startConverted = start.withZoneSameInstant(zoneId).toLocalTime();
+        LocalTime endConverted = end.withZoneSameInstant(zoneId).toLocalTime();
+
+        //System.out.println(startConverted);
+
         LocalTime am = LocalTime.of(8, 00);
         LocalTime pm = LocalTime.of(22, 00);
 
-        ZonedDateTime morning = ZonedDateTime.of(date, am, zoneId);
-        ZonedDateTime night = ZonedDateTime.of(date, pm, zoneId);
+        //System.out.println(am);
+        //System.out.println(pm);
 
-        if (start.isBefore(morning) || end.isAfter(night)) {
+        //ZonedDateTime morning = ZonedDateTime.of(date, am, zoneId);
+        //ZonedDateTime night = ZonedDateTime.of(date, pm, zoneId);
+
+       // System.out.println(morning);
+       // System.out.println(night);
+
+        //its before because they are different days now, need to check time only
+
+        if (startConverted.isBefore(am) || endConverted.isAfter(pm)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Time Format");
             alert.setContentText("Business hours are closed during this time");
