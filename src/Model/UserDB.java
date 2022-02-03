@@ -15,7 +15,7 @@ import java.sql.SQLException;
 
 public class UserDB {
 
-
+   /**method for getting all users*/
    public static ObservableList<User> getAllUsers() {
       ObservableList<User> users = FXCollections.observableArrayList();
 

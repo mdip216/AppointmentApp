@@ -16,51 +16,83 @@ import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
 
 public class AddAppointmentController implements Initializable {
+    /**
+     * an element of the gui
+     */
     @FXML
     private TextField AppointmentIDTxt;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private Button CancelBtn;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private ComboBox<String> ContactCombo;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private ComboBox<Integer> CustomerIDCombo;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private DatePicker DateDatePicker;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TextField DescriptionTxt;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private ComboBox<String> EndCombo;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TextField LocationTxt;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private Button SaveBtn;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private ComboBox<String> StartCombo;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TextField TitleTxt;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TextField TypeTxt;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private ComboBox<Integer> UserIDCombo;
 
+    /**
+     * @param event the event triggers function to switch back to the view appointments page
+     */
     @FXML
     void OnActionCancel(ActionEvent event) throws IOException {
         LoginController lg = new LoginController();
         lg.setStage("/View/ViewAppointments.fxml",event,"Appointments");
     }
-
+    /**
+     * @param event the event triggers function to save the new appointment and checks for errors
+     */
     @FXML
     void OnActionSave(ActionEvent event) throws SQLException, IOException {
         // need to query sql
@@ -137,7 +169,8 @@ public class AddAppointmentController implements Initializable {
             alert.show();
         }
     }
-
+    /**
+    * function to set the fields */
     public void setFields(){
         ObservableList<String> contacts = FXCollections.observableArrayList();
         for(Integer i : AppointmentDB.getIdsForComboBox("contacts")){
@@ -150,7 +183,8 @@ public class AddAppointmentController implements Initializable {
         UserIDCombo.setItems(AppointmentDB.getIdsForComboBox("user"));
 
     }
-
+    /**
+     * calls the setfields method on initialization */
     @Override
     public void initialize(URL url, ResourceBundle rb){
         setFields();

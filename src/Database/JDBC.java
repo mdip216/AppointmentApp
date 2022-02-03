@@ -13,7 +13,7 @@ public abstract class JDBC {
     private static final String userName = "sqlUser"; // Username
     private static String password = "Passw0rd!"; // Password
     public static Connection connection;  // Connection Interface
-
+    /**method to connect to the database*/
     public static void openConnection()
     {
         try {
@@ -26,11 +26,11 @@ public abstract class JDBC {
             System.out.println("Error:" + e.getMessage());
         }
     }
-
+    /**method to get the connection*/
     public static Connection getConnection(){
         return connection;
     }
-
+    /**method to close the connection*/
     public static void closeConnection() {
         try {
             connection.close();

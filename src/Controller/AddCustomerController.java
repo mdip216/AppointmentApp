@@ -15,40 +15,62 @@ import java.util.ResourceBundle;
 
 public class AddCustomerController implements Initializable {
 
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TextField AddressTxt;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private Button CancelBtn;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private ComboBox<String> CountryCombo;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TextField CustomerIDTxt;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private ComboBox<String> DivisionCombo;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TextField NameTxt;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TextField PhoneTxt;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TextField PostalCodeTxt;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private Button SaveBtn;
-
+    /**
+     * @param event the event triggers function to switch back to the view customers page
+     */
     @FXML
     void OnActionCancel(ActionEvent event) throws IOException {
         LoginController lg = new LoginController();
         lg.setStage("/View/ViewCustomers.fxml",event,"Customers");
     }
-
+    /**
+     * @param event the event triggers function to update the division combo box based on country
+     */
     @FXML
     void OnActionCountryChange(ActionEvent event) {
         String country = CountryCombo.getValue();
@@ -56,6 +78,9 @@ public class AddCustomerController implements Initializable {
         DivisionCombo.setValue(CustomerDB.getDivisions(country).get(0));
     }
 
+    /**
+     * @param event the event triggers function to save the new customer and checks for errors
+     */
     @FXML
     void OnActionSave(ActionEvent event) throws IOException {
        try {
@@ -88,6 +113,8 @@ public class AddCustomerController implements Initializable {
 
     }
 
+    /**
+     * sets the gui elements on initialization */
     @Override
     public void initialize(URL url, ResourceBundle rb){
         CountryCombo.setItems(CustomerDB.getCountries());

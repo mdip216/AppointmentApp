@@ -1,5 +1,8 @@
 package Controller;
-
+/**
+ *
+ * @author Matt DiPerna
+ */
 import Model.Appointment;
 import Model.AppointmentDB;
 import Model.Customer;
@@ -21,57 +24,96 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ViewCustomersController implements Initializable {
-
+    /**
+     * for setting the Stage
+     */
     private Stage stage;
+    /**
+     * for setting the Scene
+     */
     private Parent scene;
+
+    /**
+     * an element of the gui
+     */
     @FXML
     private Button AddBtn;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> AddressCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableView<Customer> CustomerView;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private Button BackBtn;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> CountryCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private Button DeleteBtn;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> DivisionCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> IDCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> NameCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> PhoneNumberCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> PostalCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private Button UpdateBtn;
-
+    /**
+     * @param event the event triggers function to switch to the customer view
+     */
     @FXML
     void OnActionAdd(ActionEvent event) throws IOException {
         LoginController lg = new LoginController();
         lg.setStage("/View/AddCustomer.fxml",event,"Add Customer");
     }
 
+    /**
+     * @param event the event triggers function to switch to the appointments view
+     */
+
     @FXML
     void OnActionBack(ActionEvent event) throws IOException {
         LoginController lg = new LoginController();
         lg.setStage("/View/ViewAppointments.fxml",event,"Appointments");
     }
-
+    /**
+     * @param event the event triggers function to delete an appointment
+     */
     @FXML
     void OnActionDelete(ActionEvent event) {
         try{
@@ -109,7 +151,9 @@ public class ViewCustomersController implements Initializable {
             alert.show();
         }
     }
-
+    /**
+     * @param event the event triggers function to switch to the update customer view
+     */
     @FXML
     void OnActionUpdate(ActionEvent event) {
         try {
@@ -134,7 +178,9 @@ public class ViewCustomersController implements Initializable {
             alert.show();
         }
     }
-
+    /**
+     * @param customers and ObservableList for setting the customer table with the function
+     */
     public void setTable(ObservableList<Customer> customers){
 
         CustomerView.setItems(customers);
@@ -150,6 +196,9 @@ public class ViewCustomersController implements Initializable {
 
     }
 
+    /**
+     * sets the customers table
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb){
 

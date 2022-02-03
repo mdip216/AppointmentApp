@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 public class CustomerDB {
 
+    /**method for getting all customers*/
     public static ObservableList<Customer> getAllCustomers(){
         ObservableList<Customer> customers = FXCollections.observableArrayList();
         try{
@@ -44,6 +45,8 @@ public class CustomerDB {
         return customers;
     }
 
+    /**method for getting all countries*/
+
     public static ObservableList<String> getCountries(){
         ObservableList<String> countries = FXCollections.observableArrayList();
         try{
@@ -52,13 +55,14 @@ public class CustomerDB {
             while(rs.next()){
                 countries.add(rs.getString("country"));
             }
+
         }catch(SQLException throwables){
             throwables.printStackTrace();
         }
 
         return countries;
     }
-
+    /**method for getting all divisions*/
     public static ObservableList<String> getDivisions(String country){
         ObservableList<String> divisions = FXCollections.observableArrayList();
 
@@ -81,6 +85,7 @@ public class CustomerDB {
         return divisions;
     }
 
+    /**method for saving updated customer*/
     public static void saveUpdatedCustomer(int CustomerId,String Name,String address,String postalCode,String phoneNumber,String division,String country){
         try {
             PreparedStatement ps = JDBC.getConnection().prepareStatement("update customers \n" +
@@ -99,6 +104,7 @@ public class CustomerDB {
         }
     }
 
+    /**method for getting division id*/
     public static int getDivisionId(String name){
         try{PreparedStatement ps = JDBC.getConnection().prepareStatement("Select division_id from first_level_divisions where division = ?");
             ps.setString(1,name);
@@ -113,7 +119,7 @@ public class CustomerDB {
         }
         return 0;
     }
-
+    /**method for deleting customer*/
     public static void deleteCustomer(int customerId){
         try{
 
@@ -129,7 +135,7 @@ public class CustomerDB {
 
 
     }
-
+    /**method for saving added customer*/
     public static void saveAddedCustomer(String Name,String address,String postalCode,String phoneNumber,String division,String country){
         try {
             PreparedStatement ps = JDBC.getConnection().prepareStatement("INSERT INTO customers VALUES(NULL, ?, ?, ?, " +

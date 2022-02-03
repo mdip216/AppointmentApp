@@ -16,35 +16,56 @@ import java.util.ResourceBundle;
 
 public class UpdateCustomerController implements Initializable {
 
-
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TextField AddressTxt;
 
+    /**
+     * an element of the gui
+     */
     @FXML
     private TextField CustomerIDTxt;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private Button CancelBtn;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private ComboBox<String> CountryCombo;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private ComboBox<String> DivisionCombo;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TextField NameTxt;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TextField PhoneTxt;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TextField PostalCodeTxt;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private Button SaveBtn;
 
+    /**
+     * @param event the event triggers function to load the divisions combo box based on country
+     */
     @FXML
     void OnActionCountryChange(ActionEvent event) {
         String country = CountryCombo.getValue();
@@ -52,12 +73,17 @@ public class UpdateCustomerController implements Initializable {
         DivisionCombo.setValue(CustomerDB.getDivisions(country).get(0));
     }
 
+    /**
+     * @param event the event triggers function to switch back to the view customers page
+     */
     @FXML
     void OnActionCancel(ActionEvent event) throws IOException {
         LoginController lg = new LoginController();
         lg.setStage("/View/ViewCustomers.fxml",event,"Customers");
     }
-
+    /**
+     * @param event the event triggers function to save the new customer info
+     */
     @FXML
     void OnActionSave(ActionEvent event) throws IOException {
         //up to here
@@ -84,7 +110,9 @@ public class UpdateCustomerController implements Initializable {
         lg.setStage("/View/ViewCustomers.fxml",event,"Customers");
 
     }
-
+    /**
+     * @param customer allows us to load the customer information that was selected
+     */
     public void sendCustomer(Customer customer){
 
         CustomerIDTxt.setText(String.valueOf(customer.getCustomerID()));

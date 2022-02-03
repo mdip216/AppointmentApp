@@ -1,5 +1,8 @@
 package Controller;
-
+/**
+ *
+ * @author Matt DiPerna
+ */
 import Model.Appointment;
 import Model.AppointmentDB;
 import javafx.collections.ObservableList;
@@ -25,84 +28,139 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ViewAppointmentsController implements Initializable {
+    /**
+     * for setting the Stage
+     */
     private Stage stage;
+    /**
+     * for setting the Scene
+     */
     private Parent scene;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private Button viewCustomersBtn;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private Button ReportsBtn;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private Button DeleteBtn;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private Button AddBtn;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private Button UpdateBtn;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private RadioButton AllButton;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableView<Appointment> ApptmtsView;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?,?> ContactCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> CustIDCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> DescriptionCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> EndCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?,?> IDCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> LocationCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private RadioButton MonthButton;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> StartCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> TitleCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> TypeCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> UserIDCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private RadioButton WeekButton;
 
+    /**
+     * @param event the event triggers function to switch to the add appointments view
+     */
     @FXML
     void OnActionAdd(ActionEvent event) throws IOException {
         LoginController lg = new LoginController();
         lg.setStage("/View/AddAppointments.fxml",event,"Add Appointment");
     }
 
+    /**
+     * @param event the event triggers function to switch to the add appointments view
+     */
     @FXML
     void OnActionViewCustomers(ActionEvent event) throws IOException {
         LoginController lg = new LoginController();
         lg.setStage("/View/ViewCustomers.fxml",event,"Customers");
     }
+    /**
+     * @param event the event triggers function to switch to the view reports view
+     */
     @FXML
     void OnActionViewReports(ActionEvent event) throws IOException {
         LoginController lg = new LoginController();
         lg.setStage("/View/ViewReports.fxml",event,"Reports");
 
     }
-
+    /**
+     * @param event the event triggers function to switch to the view reports view
+     */
     @FXML
     void OnActionDelete(ActionEvent event) {
         try{
@@ -140,7 +198,9 @@ public class ViewAppointmentsController implements Initializable {
             alert.show();
         }
     }
-
+    /**
+     * @param event the event triggers function to switch to the update appointments view
+     */
     @FXML
     void OnActionUpdate(ActionEvent event) throws IOException {
 
@@ -167,11 +227,16 @@ public class ViewAppointmentsController implements Initializable {
         }
 
     }
-
+    /**
+     * @param event the event triggers function to set the table with all appointments
+     */
     @FXML
     void OnActionAll(ActionEvent event) {
         setTable(AppointmentDB.getAllAppointments());
     }
+    /**
+     * @param event the event triggers function to pass the dates to the filteredsearch
+     */
 
     @FXML
     void OnActionMonth(ActionEvent event) {
@@ -179,10 +244,12 @@ public class ViewAppointmentsController implements Initializable {
         // we need to pass the dates to our filteredsearch in AppointmentDB into UTC
         ZonedDateTime now = ZonedDateTime.now().withZoneSameInstant(ZoneOffset.UTC);
         ZonedDateTime end = now.plusMonths(1).withZoneSameInstant(ZoneOffset.UTC);
-
         setTable(AppointmentDB.getFilteredAppointments(now, end));
     }
 
+    /**
+     * @param event the event triggers function to pass the dates to the filteredsearch
+     */
     @FXML
     void OnActionWeek(ActionEvent event) {
 
@@ -194,7 +261,9 @@ public class ViewAppointmentsController implements Initializable {
     }
 
 
-
+    /**
+     * @param appointments set the table with the appointments ObservableList
+     */
     public void setTable(ObservableList<Appointment> appointments){
 
         ApptmtsView.setItems(appointments);
@@ -213,6 +282,9 @@ public class ViewAppointmentsController implements Initializable {
 
     }
 
+    /**
+     * sets the table with all appointments
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb){
 

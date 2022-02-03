@@ -1,4 +1,8 @@
 package Controller;
+/**
+ *
+ * @author Matt DiPerna
+ */
 
 import Model.Appointment;
 import Model.AppointmentDB;
@@ -21,63 +25,102 @@ public class ViewReportsController implements Initializable {
 
     private ArrayList<String> months = new ArrayList<>();
 
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableView<Appointment> ApptmtsView;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private Button BackBtn;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> ContactCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> CustIDCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> DescriptionCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> EndCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private Button GenerateBtn;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> IDCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> LocationCol;
 
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private ComboBox<String> MonthCombo;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> StartCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> TitleCol;
 
 
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> TypeCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private Button UpdateBtn;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TableColumn<?, ?> UserIDCol;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private ComboBox<String> contactCombo;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private ComboBox<String> TypeCombo;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private Button UserLogButton;
-
+    /**
+     * @param event the event triggers an alert for how many times there has been a successful login for the current year
+     */
     @FXML
     void OnActionUserLog(ActionEvent event) throws FileNotFoundException {
         // need to read the file and return successful and unsuccessful attempts for current year
@@ -88,9 +131,9 @@ public class ViewReportsController implements Initializable {
         Scanner inputFile = new Scanner(file);
         while(inputFile.hasNext()){
             item = inputFile.nextLine();
-            //System.out.println(item);
+
             if(item.contains("Successful")&&item.contains("at "+thisYear)){
-                //System.out.println("found");
+
                 successNumber++;
 
             }
@@ -104,13 +147,17 @@ public class ViewReportsController implements Initializable {
     }
 
 
-
+    /**
+     * @param event the event switches screens to view appointments
+     */
     @FXML
     void OnActionBack(ActionEvent event) throws IOException {
         LoginController lg = new LoginController();
         lg.setStage("/View/ViewAppointments.fxml",event,"Appointments");
     }
-
+    /**
+     * @param event the event triggers an alert to display the number of appointments in a current month and type
+     */
     @FXML
     void OnActionGenerate(ActionEvent event) {
 
@@ -131,14 +178,18 @@ public class ViewReportsController implements Initializable {
     }
 
 
-
+    /**
+     * @param event the event triggers the table to be updated based on the name of the contact
+     */
 
     @FXML
     void OnActionUpdateCombo(ActionEvent event) {
         setTable(AppointmentDB.getFilteredAppointmentsByContact(contactCombo.getValue()));
 
     }
-
+    /**
+     * @param appointments sets the table with the ObservableList appointments items
+     */
 
     public void setTable(ObservableList<Appointment> appointments){
 
@@ -158,16 +209,29 @@ public class ViewReportsController implements Initializable {
 
     }
 
+    /**
+     *  sets the contact combo box
+     *  lambda used to set the contact combo box, i used this because it was less lines of code than
+     *      *  a for loop and easier to read
+     */
+
     public void setContactCombo(){
         ObservableList<String> contacts = FXCollections.observableArrayList();
-        for(Integer i : AppointmentDB.getIdsForComboBox("contacts")){
-            contacts.add(AppointmentDB.contactIdToContact(i));
-        }
+
+        //lambda
+        AppointmentDB.getIdsForComboBox("contacts").stream()
+                .forEach(i->contacts.add(AppointmentDB.contactIdToContact(i)));
+
 
         contactCombo.setItems(contacts);
         contactCombo.setValue(contacts.get(0));
 
     }
+
+    /**
+     *  sets the month combo box
+     *
+     */
 
     public void setMonthCombo(){
 
@@ -194,13 +258,17 @@ public class ViewReportsController implements Initializable {
 
     }
 
+    /**
+     *  sets the type combo box
+     *  lambda used to set the type combo box, i used this because it was less lines of code than
+     *  a for loop and easier to read
+     */
     public void setTypeCombo(){
         ObservableList<String> types = FXCollections.observableArrayList();
         HashSet<String> set = new HashSet<>();
-        for(Appointment i :AppointmentDB.getAllAppointments()){
-            set.add(i.getType());
+        //lambda
+        AppointmentDB.getAllAppointments().stream().forEach(i->set.add(i.getType()));
 
-        }
         Iterator<String> it = set.iterator();
         while (it.hasNext()) {
             types.add(String.valueOf(it.next()));
@@ -211,10 +279,12 @@ public class ViewReportsController implements Initializable {
         TypeCombo.setValue(types.get(0));
     }
 
+    /**
+     *  sets the tables and combo box values on when the view is loaded
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb){
 
-        //setTable(AppointmentDB.getFilteredAppointmentsByContact());
         setMonthCombo();
         setTypeCombo();
         setContactCombo();

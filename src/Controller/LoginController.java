@@ -26,41 +26,78 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
-
+    /**
+     * for setting the Stage
+     */
     Stage stage;
+    /**
+     * for setting the Scene
+     */
     Parent scene;
     private boolean loginSuccess;
 
+    /**
+     * for setting the alert title
+     */
     private String alertTitle = "Invalid Username / Password";
+    /**
+     * for setting the alert message
+     */
     private String alertMessage = "Invalid Username or Password";
+    /**
+     * an element of the gui
+     */
     @FXML
     private Label UsernameLbl;
+    /**
+     * an element of the gui
+     */
 
     @FXML
     private Label PasswordLbl;
+    /**
+     * an element of the gui
+     */
 
     @FXML
     private Button CancelBtn;
+    /**
+     * an element of the gui
+     */
 
     @FXML
     private Label LocationLbl;
+    /**
+     * an element of the gui
+     */
 
     @FXML
     private Button LoginBtn;
+    /**
+     * an element of the gui
+     */
 
     @FXML
     private PasswordField PasswordTxt;
+    /**
+     * an element of the gui
+     */
 
     @FXML
     private TextField Usernametxt;
 
 
-
+    /**
+     * @param event the event cancels the login process
+     */
     @FXML
     void onActionCancel(ActionEvent event) {
         System.exit(0);
     }
 
+    /**
+     * @param event the event triggers a login attempt
+     */
     @FXML
     void onActionLogin(ActionEvent event) throws IOException {
         String name = Usernametxt.getText();
@@ -108,23 +145,19 @@ public class LoginController implements Initializable {
      * @param s takes a string s and on an event sets the scene to the path passed a s
      */
     void setStage(String s,ActionEvent event, String title) throws IOException {
-        /**
-         * get source of event, cast to button type, cast to stage
-         */
+
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        /**
-         * get path of new fxml doc
-         */
+
         scene = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(s)));
         scene.setStyle("-fx-font-family: 'Times New Roman';");
-        /**
-         * set scene of new view
-         */
+
         stage.setTitle(title);
         stage.setScene(new Scene(scene));
         stage.show();
     }
-
+    /**
+     * @param loginSuccess checks whether the login was successful or not and writes the attempt to a file
+     */
     public static void loginLog(boolean loginSuccess) throws IOException {
         // if its not there one will be created
         //track all attempts, for the date and time they occurred and whether or not successful
@@ -143,6 +176,9 @@ public class LoginController implements Initializable {
 
     }
 
+    /**
+     *  sets the language based on user settings
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb){
 

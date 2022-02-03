@@ -14,9 +14,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.TimeZone;
 
 public class AppointmentDB {
+    /**string for fifteen minute alert*/
     private static String fifteenMinStr;
+    /**string for delete alert*/
     private static String onDeleteStr;
 
+    /**method for getting all appointments in the database*/
     public static ObservableList<Appointment> getAllAppointments() {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
@@ -49,7 +52,7 @@ public class AppointmentDB {
 
         return appointments;
     }
-
+    /**method for getting all filtered appointments in the database by the time and date*/
     public static ObservableList<Appointment> getFilteredAppointments(ZonedDateTime beg, ZonedDateTime stop) {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
@@ -92,7 +95,7 @@ public class AppointmentDB {
 
         return appointments;
     }
-
+    /**method for saving appointments in the database*/
     public static void saveAddedAppointment(String title, String description, String location, String contact, String type, ZonedDateTime newStart, ZonedDateTime newEnd, int custId, int userId) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         try {
@@ -117,7 +120,7 @@ public class AppointmentDB {
         }
 
     }
-
+    /**method for saving updated appointments in the database*/
     public static void saveUpdatedAppointment(int appmtId, String title, String description, String location, String contact, String type, ZonedDateTime newStart, ZonedDateTime newEnd, int custId, int userId) throws SQLException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -131,7 +134,7 @@ public class AppointmentDB {
 
             // contact needs to be converted back to contact_id
             ps.setInt(4, contactToContactId(contact));
-            //System.out.println(contactToContactId(contact));
+
 
 
             ps.setString(5, type);
@@ -150,13 +153,9 @@ public class AppointmentDB {
             throwables.printStackTrace();
         }
 
-        //test for correct conversion
-        //System.out.println(newEnd);
-        //System.out.println((newEnd.withZoneSameInstant(ZoneOffset.UTC).format(formatter)));
-
 
     }
-
+    /**method for deleting appointments in the database*/
     public static String deleteAppointment(int apptmtId, String type) {
         try {
             PreparedStatement ps = JDBC.getConnection().prepareStatement("delete from appointments \n" +
@@ -174,14 +173,13 @@ public class AppointmentDB {
         throw new IllegalArgumentException("Not found");
     }
 
-
+    /**method for checking EST business hours*/
     public static boolean estCheck(ZonedDateTime start, ZonedDateTime end, LocalDate date) {
         // Business hours are in EST
         ZoneId zoneId = ZoneId.of("America/New_York");
         LocalTime am = LocalTime.of(8, 00);
         LocalTime pm = LocalTime.of(22, 00);
-        //ZonedDateTime startEST = start.atZone(zoneId);
-        // ZonedDateTime endEST = end.atZone(zoneId);
+
         ZonedDateTime morning = ZonedDateTime.of(date, am, zoneId);
         ZonedDateTime night = ZonedDateTime.of(date, pm, zoneId);
 
@@ -195,7 +193,7 @@ public class AppointmentDB {
         }
         return true;
     }
-
+    /**method for time combo box*/
     public static ObservableList<String> createTimes() {
         ObservableList<String> times = FXCollections.observableArrayList();
 
@@ -224,7 +222,7 @@ public class AppointmentDB {
         return times;
     }
 
-
+    /**method for id combo box*/
     public static ObservableList<Integer> getIdsForComboBox(String idName) {
         //return the observable array list of int ids
         ObservableList<Integer> ids = FXCollections.observableArrayList();
@@ -269,6 +267,7 @@ public class AppointmentDB {
         return ids.sorted();
     }
 
+    /**method for converting contact id to contact name string*/
     public static String contactIdToContact(int id) {
         try {
             PreparedStatement ps = JDBC.getConnection().prepareStatement("select contact_name \n" +
@@ -285,7 +284,7 @@ public class AppointmentDB {
         }
         throw new IllegalArgumentException("Not found");
     }
-
+    /**method for converting contact string to contact id int*/
     public static int contactToContactId(String name) throws SQLException {
 
         try {
@@ -304,12 +303,11 @@ public class AppointmentDB {
         }
         return 0;
     }
-
+    /**method for checking for appointments within fifteen minutes of login*/
     public static boolean fifteenMinCheck() {
         for (Appointment i : getAllAppointments()) {
             // these are in local time convert them to zone
             ZonedDateTime zdt = i.getStart().atZone(ZoneId.systemDefault());
-
 
             //get now in zone time
             ZonedDateTime now = ZonedDateTime.now();
@@ -324,21 +322,19 @@ public class AppointmentDB {
 
         return false;
     }
-
+    /**@return fifteenMinStr*/
     public static String getFifteenMinStr() {
         return fifteenMinStr;
     }
-
+    /**method for checking for repeating customer appointments*/
     public static boolean repeatCustomerAppointment(int apptmtId, int custId, ZonedDateTime start, ZonedDateTime end) { //function isnt finished
         for (Appointment i : getAllAppointments()) {
             if (i.getCustomerId() == custId && i.getApptmtId() != apptmtId) {
-                // System.out.println(i.getCustomerId());
-                // System.out.println(custId);
+
                 //check times
                 ZonedDateTime existingStart = i.getStart().atZone(ZoneId.systemDefault());
                 ZonedDateTime existingEnd = i.getEnd().atZone(ZoneId.systemDefault());
-                //System.out.println(existingStart);
-                //System.out.println(existingEnd);
+
 
                 //with start before existing start
                 if (start.isBefore(existingStart) && end.isAfter(existingStart)) {
@@ -375,8 +371,7 @@ public class AppointmentDB {
             } else if (i.getCustomerId() == custId && apptmtId == Integer.MIN_VALUE) {
                 ZonedDateTime existingStart = i.getStart().atZone(ZoneId.systemDefault());
                 ZonedDateTime existingEnd = i.getEnd().atZone(ZoneId.systemDefault());
-                //System.out.println(existingStart);
-                //System.out.println(existingEnd);
+
 
                 //with start before existing start
                 if (start.isBefore(existingStart) && end.isAfter(existingStart)) {
@@ -416,7 +411,7 @@ public class AppointmentDB {
 
         return false;
     }
-
+    /**method for checking for filtering appointments by contact string*/
     public static ObservableList<Appointment> getFilteredAppointmentsByContact(String contactName) {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
@@ -454,6 +449,7 @@ public class AppointmentDB {
         return appointments;
     }
 
+    /**method for getting the number of appointments given a month and type*/
     public static int getCount(String type, int month ) {
         int count = 0;
         try {

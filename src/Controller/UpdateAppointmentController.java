@@ -1,5 +1,8 @@
 package Controller;
-
+/**
+ *
+ * @author Matt DiPerna
+ */
 import Model.Appointment;
 import Model.AppointmentDB;
 import javafx.collections.FXCollections;
@@ -24,48 +27,75 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 public class UpdateAppointmentController implements Initializable {
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TextField AppointmentIDTxt;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private Button CancelBtn;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private ComboBox<String> ContactCombo;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private ComboBox<Integer> CustomerIDCombo;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private DatePicker DateDatePicker;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TextField DescriptionTxt;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private ComboBox<String> EndCombo;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TextField LocationTxt;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private Button SaveBtn;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private ComboBox<String> StartCombo;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TextField TitleTxt;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private TextField TypeTxt;
-
+    /**
+     * an element of the gui
+     */
     @FXML
     private ComboBox<Integer> UserIDCombo;
 
-
-
+    /**
+     * @param event the event triggers function to switch back to the view appointments page
+     */
     @FXML
     void OnActionCancel(ActionEvent event) throws IOException {
 
@@ -73,6 +103,9 @@ public class UpdateAppointmentController implements Initializable {
         lg.setStage("/View/ViewAppointments.fxml",event,"Appointments");
     }
 
+    /**
+     * @param event the event triggers function to save the updated appointment info and checks for errors
+     */
     @FXML
     void OnActionSave(ActionEvent event) throws SQLException, IOException {
 
@@ -144,11 +177,12 @@ public class UpdateAppointmentController implements Initializable {
 
 
     }
-
+    /**
+     * @param appointment used to load the selected appointment info
+     */
     public void sendAppointment(Appointment appointment){
         ObservableList<String> contacts = FXCollections.observableArrayList();
-        //ObservableList<Integer> custId = FXCollections.observableArrayList();
-        //ObservableList<Integer> userId = FXCollections.observableArrayList();
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
         //not working correctly need to get the data from the actual db
