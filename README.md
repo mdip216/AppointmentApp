@@ -1,32 +1,15 @@
 Title: AppointmentApp
 
-Purpose: A JavaFx Gui Application used for scheduling appointments connected to a database 
+Purpose: A bilingual JavaFX Application used for scheduling appointments connected to a database. 
+
+Description: Create, retrieve, modify and delete appointments from a MySql datatbase using JDBC while accounting for foreign key constraints. Login form determines and displays user location, and translates between English or French using .properties based on user's computer settings. Accepts correct user ID and password and displays a message if incorrect. Logs all user login attempts in a .txt file. Generates a message if there is an appointment within 15 minutes of login. Accounts for switching time zones between the database (UTC) and the time zone of the user's location using ZonedDateTime, LocalDateTime, Timestamp classes. Generates alerts for incorrect information entered for an appointment. Takes into consideration overlapping appointments for the same customer. Generates multiple different reports based on the entities of the database. 
 
 Author: Matthew DiPerna
-
-Contact Info: mdipern@wgu.edu
-
-Date: 2/3/22
-
-IDE Version: IntelliJ IDEA 2021.1.1 (Community Edition)
-Build #IC-211.7142.45, built on April 30, 2021
-Runtime version: 11.0.10+9-b1341.41 amd64
-VM: Dynamic Code Evolution 64-Bit Server VM by JetBrains s.r.o.
-Windows 10 10.0
-GC: G1 Young Generation, G1 Old Generation
-Memory: 768M
-Cores: 4
-Kotlin: 211-1.4.32-release-IJ7142.27
 
 JDK Version: Java-jdk-11.0.11
 
 JavaFX Version: javafx-sdk-11.0.2
 
-how to run: In the JDBC.java file replace all the strings in quotation marks with your own information for the Mysql database on your local machine 
-
-description of additional report: for my additional report I chose to show the number of successful user logins for the current year. This is different from the user log_activity 
-file because we are only seeing successful attempts and only for the current year. 
-
-lambdas : both lambas are in the viewReportsController
+How to run: In the JDBC.java file replace all the strings in quotation marks with your own information for the Mysql database on your local machine 
 
 MySql Version Number: mysql-connector-java-8.0.25
